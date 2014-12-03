@@ -31,12 +31,18 @@
 		<property name="format_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">update</property><!--
 
         <mapping resource="manytoone/Group.hbm.xml"/>
 		<mapping class="manytoone.Group"/>
 		<mapping resource="manytoone/User.hbm.xml"/>
 		<mapping class="manytoone.User"/>
+    -->
+     <mapping resource="manytomany/Student.hbm.xml"/>
+		<mapping class="manytomany.Student"/>
+		<mapping resource="manytomany/Teacher.hbm.xml"/>
+		<mapping class="manytomany.Teacher"/>
+    
     </session-factory>
 
 </hibernate-configuration>
