@@ -1,43 +1,70 @@
 <!DOCTYPE hibernate-configuration PUBLIC
           "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"> 
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
 
 	<session-factory>
 
 		<!-- Database connection settings -->
+		<!-- Hibernate 连接数据库的基本信息 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://localhost:3306/databasetest</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">password</property>
-
+		<!-- Hibernate 的基本配置 -->
+		<!-- Hibernate 使用的数据库方言 -->
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
+		
+		<!-- 配置 C3P0 数据源 -->
+    	<property name="hibernate.c3p0.max_size">10</property>
+    	<property name="hibernate.c3p0.min_size">5</property>
+    	<property name="c3p0.acquire_increment">2</property>
+    	<property name="c3p0.idle_test_period">2000</property>
+    	<property name="c3p0.timeout">2000</property>
+    	<property name="c3p0.max_statements">10</property>
 
+		<!-- 设置 Hibernate 的事务隔离级别 -->
+		<property name="connection.isolation">2</property>
 		<!-- SQL dialect -->
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- Enable Hibernate's automatic session context management -->
 		<property name="current_session_context_class">thread</property>
 
-		<!-- Disable the second-level cache -->
-		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<!-- able the second-level cache -->
+		<!-- 配置使用的二级缓存的产品 -->
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
+		<property name="hibernate.cache.use_second_level_cache">
+			true
+		</property>
+		<!-- 配置启用查询缓存 -->
+		<property name="hibernate.cache.use_query_cache">
+			true
+		</property>
+		
+		<property name="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</property>
 
 		<!-- Echo all executed SQL to stdout -->
+		<!-- 运行时是否打印 SQL -->
 		<property name="show_sql">true</property>
-
+		<!-- 运行时是否格式化 SQL -->
 		<property name="format_sql">true</property>
 
 		<!-- Drop and re-create the database schema on startup -->
+		<!-- 生成数据表的策略 -->
 		<property name="hbm2ddl.auto">update</property>
-<!-- 		<mapping resource="org/Org.hbm.xml" />
+		
+		<!-- 需要关联的 hibernate 映射文件 .hbm.xml -->
+		<!-- <mapping resource="org/Org.hbm.xml" /> 
 		<mapping class="org.Org" /> -->
-		
-				<mapping resource="manytoone/Group.hbm.xml" />
+
+		<mapping resource="manytoone/Group.hbm.xml" />
 		<mapping class="manytoone.Group" />
-		
-				<mapping resource="manytoone/User.hbm.xml" />
+
+		<mapping resource="manytoone/User.hbm.xml" />
 		<mapping class="manytoone.User" />
 
 	</session-factory>

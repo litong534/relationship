@@ -83,10 +83,9 @@ public class Test {
 	        sf = cfg.buildSessionFactory(sr);
 	        session = sf.openSession();
 	        session.beginTransaction();
-	        List<User> users = session.createCriteria(User.class).list();
-	        for(User u:users){
-	        	System.out.println(u.getName());
-	        }
+	        User u = (User) session.load(User.class,1);
+	        System.out.println(u.getName());
+	        User u1 = (User) session.load(User.class,1);
 	        session.getTransaction().commit();
 	        session.close();
 	        sf.close();
