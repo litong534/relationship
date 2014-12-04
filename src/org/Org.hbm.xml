@@ -4,12 +4,16 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="manytoone.User" table="t_user">
+	<class name="org.Org" table="t_group">
 		<id name="id">
 			<generator class="identity"></generator>
 		</id>
-		<property name="name" />
-		<many-to-one name="group" column="groupId" cascade="all"></many-to-one>
+		<property name="name"/>
+		<many-to-one class="org.Org" name="parent" column="parentId"></many-to-one>
+		<set name="children" cascade="all" inverse="true">
+		<key></key>
+		<one-to-many class="org.Org"></one-to-many>
+		</set>
     </class>
 	
 </hibernate-mapping>

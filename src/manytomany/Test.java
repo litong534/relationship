@@ -8,10 +8,10 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 public class Test {
-//	static Configuration cfg = null;
-//	static StandardServiceRegistryBuilder srb = null;
-//	static SessionFactory sf = null;
-//	static Session session = null;
+	static Configuration cfg = null;
+	static StandardServiceRegistryBuilder srb = null;
+	static SessionFactory sf = null;
+	static Session session = null;
 //	
 //	public static void testSave(Student s){
 //		 cfg = new Configuration().configure(); 
@@ -39,18 +39,18 @@ public class Test {
 //	        sf.close();
 //	}
 //	
-//	public static void testDelete(Student s){
-//		 cfg = new Configuration().configure(); 
-//	        srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
-//	        StandardServiceRegistry sr = srb.build();
-//	        sf = cfg.buildSessionFactory(sr);
-//	        session = sf.openSession();
-//	        session.beginTransaction();
-//	        session.delete(s);
-//	        session.getTransaction().commit();
-//	        session.close();
-//	        sf.close();
-//	}
+	public static void testDelete(Student s){
+		 cfg = new Configuration().configure(); 
+	        srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
+	        StandardServiceRegistry sr = srb.build();
+	        sf = cfg.buildSessionFactory(sr);
+	        session = sf.openSession();
+	        session.beginTransaction();
+	        session.delete(s);
+	        session.getTransaction().commit();
+	        session.close();
+	        sf.close();
+	}
 	public static void main(String[] args) {
 //		Student s = new Student();
 //		s.setId(1);
