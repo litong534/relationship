@@ -31,8 +31,14 @@
 
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
-		<mapping resource="org/Org.hbm.xml" />
-		<mapping class="org.Org" />
+<!-- 		<mapping resource="org/Org.hbm.xml" />
+		<mapping class="org.Org" /> -->
+		
+				<mapping resource="manytoone/Group.hbm.xml" />
+		<mapping class="manytoone.Group" />
+		
+				<mapping resource="manytoone/User.hbm.xml" />
+		<mapping class="manytoone.User" />
 
 	</session-factory>
 

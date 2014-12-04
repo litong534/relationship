@@ -9,7 +9,7 @@
 			<generator class="identity"></generator>
 		</id>
 		<property name="name" />
-		<many-to-one name="group" column="groupId" cascade="all"></many-to-one>
+		<many-to-one name="group" column="groupId" cascade="all" lazy="false"></many-to-one>
     </class>
 	
 </hibernate-mapping>

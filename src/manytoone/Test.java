@@ -1,4 +1,6 @@
 package manytoone;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -13,18 +15,42 @@ public class Test {
 	static Session session = null;
 	
 	public static void testSave(){
-		User u = new User();
-		u.setName("u1");
 		Group g = new Group();
 		g.setName("g1");
-		u.setGroup(g);
+		User u1 = new User();
+		u1.setName("u1");
+		u1.setGroup(g);
+		User u2 = new User();
+		u2.setName("u2");
+		u2.setGroup(g);
+		User u3 = new User();
+		u3.setName("u3");
+		u3.setGroup(g);
+		User u4 = new User();
+		u4.setName("u4");
+		u4.setGroup(g);
+		User u5 = new User();
+		u5.setName("u5");
+		u5.setGroup(g);
+		User u6 = new User();
+		u6.setName("u6");
+		u6.setGroup(g);
+		User u7 = new User();
+		u7.setName("u7");
+		u7.setGroup(g);
 		cfg = new Configuration().configure(); 
         srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
         StandardServiceRegistry sr = srb.build();
         sf = cfg.buildSessionFactory(sr);
 		Session session = sf.getCurrentSession();
 		session.beginTransaction();
-		session.save(u);
+		session.save(u1);
+		session.save(u2);
+		session.save(u3);
+		session.save(u4);
+		session.save(u5);
+		session.save(u6);
+		session.save(u7);
 		session.getTransaction().commit();
 	}
 	
@@ -50,33 +76,27 @@ public class Test {
 //	        sf.close();
 //	}
 //	
-//	public static void testDelete(Student s){
-//		 cfg = new Configuration().configure(); 
-//	        srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
-//	        StandardServiceRegistry sr = srb.build();
-//	        sf = cfg.buildSessionFactory(sr);
-//	        session = sf.openSession();
-//	        session.beginTransaction();
-//	        session.delete(s);
-//	        session.getTransaction().commit();
-//	        session.close();
-//	        sf.close();
-//	}
-	public static void testmethod() {
-		User u1 = new User();
-		u1.setName("u1");
-		User u2 = new User();
-		u2.setName("u2");
-		u1=u2;
-		System.out.println(u1.getName());
-		u2=null;
-		System.out.println(u1.getName());
+	public static void test1N(){
+		 cfg = new Configuration().configure(); 
+	        srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
+	        StandardServiceRegistry sr = srb.build();
+	        sf = cfg.buildSessionFactory(sr);
+	        session = sf.openSession();
+	        session.beginTransaction();
+	        List<User> users = session.createCriteria(User.class).list();
+	        for(User u:users){
+	        	System.out.println(u.getName());
+	        }
+	        session.getTransaction().commit();
+	        session.close();
+	        sf.close();
 	}
 	
 	public static void main(String[] args) {
-		Test test = new Test();
-		test.schemaExport();
-		testGet();
+//		Test test = new Test();
+//		test.schemaExport();
+//		testSave();
+		test1N();
 	}
 	
 	public void schemaExport(){

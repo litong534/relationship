@@ -1,10 +1,16 @@
 package org;
+import java.util.List;
+
+import manytomany.Student;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+
 
 public class Test {
 	static Configuration cfg = null;
@@ -50,18 +56,24 @@ public class Test {
 //	        sf.close();
 //	}
 //	
-//	public static void testDelete(Student s){
-//		 cfg = new Configuration().configure(); 
-//	        srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
-//	        StandardServiceRegistry sr = srb.build();
-//	        sf = cfg.buildSessionFactory(sr);
-//	        session = sf.openSession();
-//	        session.beginTransaction();
-//	        session.delete(s);
-//	        session.getTransaction().commit();
-//	        session.close();
-//	        sf.close();
-//	}
+	public static void testQuery(){
+		 cfg = new Configuration().configure(); 
+	        srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
+	        StandardServiceRegistry sr = srb.build();
+	        sf = cfg.buildSessionFactory(sr);
+	        session = sf.openSession();
+	        session.beginTransaction();
+	        Query query = session.createQuery("from Org o order by o.name");
+	        query.setFirstResult(2);
+	        query.setMaxResults(2);
+	        List<Org> orgs = (List<Org>)query.list();
+	        for(Org org:orgs){
+	        	System.out.println(org.getName());
+	        }
+	        session.getTransaction().commit();
+	        session.close();
+	        sf.close();
+	}
 	public static void testmethod() {
 		 cfg = new Configuration().configure(); 
         srb = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
@@ -92,9 +104,9 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		Test test = new Test();
-		test.schemaExport();
-		testmethod();
+//		Test test = new Test();
+//		test.schemaExport();
+		testQuery();
 	}
 	
 	public void schemaExport(){
